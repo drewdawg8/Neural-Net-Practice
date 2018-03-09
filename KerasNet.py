@@ -24,13 +24,14 @@ train_batches = ImageDataGenerator().flow_from_directory(train_path,target_size=
 #Scaler is used to get all of our input between 0 and 1
 scaler = MinMaxScaler(feature_range=(0,1))
 
-model = Sequential([
-        Conv2D(32,(3,3),activation ='relu',input_shape =(224,224,3)),
+'''model = Sequential([
+        Conv2D(64,(3,3),activation ='relu',input_shape =(224,224,3)),
         Conv2D(32,(3,3),activation = 'relu'),
         Flatten(),
         Dense(2,activation = 'softmax')])
-
-model.compile(Adam(lr=.0001),loss='categorical_crossentropy',metrics=['accuracy'])
+'''
+model = load_model('firstKeras.h5')
+model.compile(Adam(lr=.001),loss='categorical_crossentropy',metrics=['accuracy'])
 
 
 model.fit_generator(train_batches,steps_per_epoch=15,epochs = 20, shuffle = True,verbose = 2)
